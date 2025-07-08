@@ -1,7 +1,8 @@
 <?php
 
+use BahanController;
+
 require_once __DIR__ . '/../../../router.php';
-require_once __DIR__ . '/../../../controller/BahanController.php';
 
 
 get('/api/v1/bahan', function () {
