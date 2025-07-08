@@ -43,7 +43,7 @@
 
 - Get : All
 ```
-/api/v1/keranjanmg
+/api/v1/keranjang
 ```
 - Get : find {id}
 ```
