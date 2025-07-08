@@ -49,4 +49,22 @@ class DetailRacikan
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
     }
+
+    public static function findByRacikanId($racikan_id)
+    {
+        $db = self::connect();
+        $stmt = $db->prepare("SELECT * FROM detail_racikan WHERE racikan_id = :racikan_id");
+        $stmt->execute(['racikan_id' => $racikan_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public static function deleteByRacikanId($racikan_id)
+    {
+        $db = self::connect();
+        $stmt = $db->prepare("DELETE FROM detail_racikan WHERE racikan_id = :racikan_id");
+        $stmt->execute(['racikan_id' => $racikan_id]);
+        return $stmt->rowCount() > 0;
+    }
+
+
 }
