@@ -1,7 +1,5 @@
 <?php 
 
-use Bahan;
-
 require_once "router.php";
 require_once "models/Bahan.php";
 

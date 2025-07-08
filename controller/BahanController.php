@@ -101,21 +101,22 @@ class BahanController
     public static function destroy($id)
     {
         try {
-            $success = Bahan::delete($id);
+            $result = Bahan::find($id);
 
-            if (!$success) {
+            if (!$result) {
                 http_response_code(404);
-                header('Content-Type: application/json');
-                echo json_encode([
-                    'error' => 'Data not found'
-                ]);
+                echo json_encode(['error' => 'Data not found']);
                 return;
             }
-
+            Bahan::delete($id);
+            
             http_response_code(200);
             header('Content-Type: application/json');
             echo json_encode([
-                'data' => ['deleted' => true]
+                'data' => [
+                    'deleted' => true,
+                    'datas' => $result
+                ]
             ]);
         } catch (Exception $e) {
             self::error($e);
