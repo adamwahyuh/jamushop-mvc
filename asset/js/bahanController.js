@@ -192,7 +192,7 @@ function renderBahan(bahanList) {
             alert("Gagal mengecek keranjang.");
           });
       });
-
+                 
     container.appendChild(element);
   });
 }
