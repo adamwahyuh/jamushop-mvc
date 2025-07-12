@@ -146,7 +146,7 @@ function addDeleteListeners() {
         btn.addEventListener("click", () => {
             const id = btn.dataset.id;
 
-            if (!confirm("Yakin ingin menghapus item ini dari keranjang?")) return;
+            if (!confirm("Hapus ini?")) return;
 
             fetch(`http://localhost:9595/api/v1/keranjang/${id}`, {
                 method: "DELETE",
@@ -171,9 +171,9 @@ function addCheckoutListener() {
     const btn = document.getElementById("checkout-btn");
     if (btn) {
         btn.addEventListener("click", () => {
-            if (!confirm("Yakin ingin checkout dan menghapus semua item?")) return;
+            if (!confirm("pay?")) return;
 
-            fetch("http://localhost:9595/api/v1/keranjang", {
+            fetch("http://localhost:9595/api/v1/keranjang/pay/", {
                 method: "DELETE",
             })
             .then(res => {

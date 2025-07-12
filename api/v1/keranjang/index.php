@@ -19,11 +19,11 @@ put('/api/v1/keranjang/$id', function ($id) {
     KeranjangController::update($id);
 });
 
-delete('/api/v1/keranjang/$id', function ($id) {
-    KeranjangController::destroy($id);
+delete('/api/v1/keranjang/pay', function () {
+    KeranjangController::truncate();
 });
 
-delete('/api/v1/keranjang', function () {
-    KeranjangController::truncate();
+delete('/api/v1/keranjang/$id', function ($id) {
+    KeranjangController::destroy($id);
 });
 

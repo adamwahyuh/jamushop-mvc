@@ -17,12 +17,12 @@
     <h2 class="text-3xl font-bold text-emerald-700 mb-8">Cangkir Kamu</h2>
 
     <div id="cart-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Cart Items (injected by JS) -->
+      <!-- Cart Items DOM JS :) asset/js/keranjangController -->
     </div>
 
     <!-- Empty State -->
     <div id="empty-cart" class="text-center mt-12 hidden">
-      <h2 class="text-xl text-gray-500">Cangkir mu kosong.. Total Harga = Rp 0</h2>
+      <h2 class="text-xl text-gray-500">Cangkir mu kosong..</h2>
     </div>
   </main>
 

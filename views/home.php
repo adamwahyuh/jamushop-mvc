@@ -20,8 +20,8 @@
 
       <!-- Card -->
       <div id="bahan-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Card Items DOM JS :) asset/js/bahanController -->
       </div>
-
       <p id="no-data"class="text-center text-gray-500 mt-8 hidden">
         Tidak ada data bahan... :(
       </p>
