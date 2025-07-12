@@ -62,4 +62,11 @@ class Keranjang
         $stmt->execute(['id' => $id]);
         return $stmt->rowCount() > 0;
     }
+    public static function truncate()
+    {
+        $db = self::connect();
+        $db->exec("DELETE FROM keranjang");
+        return true;
+    }
+
 }

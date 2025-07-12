@@ -124,4 +124,9 @@ class KeranjangController
             'error' => $e->getMessage()
         ]);
     }
+    public static function truncate()
+    {
+        Keranjang::truncate();
+    }
+
 }

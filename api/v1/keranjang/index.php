@@ -22,3 +22,8 @@ put('/api/v1/keranjang/$id', function ($id) {
 delete('/api/v1/keranjang/$id', function ($id) {
     KeranjangController::destroy($id);
 });
+
+delete('/api/v1/keranjang', function () {
+    KeranjangController::truncate();
+});
+

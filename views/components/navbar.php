@@ -32,7 +32,7 @@
 
         <!-- Cart -->
         <div class="relative hidden md:flex items-center justify-center h-10 w-10">
-          <a href="../../../pages/keranjang.php" class="hover:text-emerald-200 transition">
+          <a href="/cangkir" class="hover:text-emerald-200 transition">
             <i class="bi bi-cup-hot text-2xl"></i>
           </a>
           <span class="absolute top-[-3px] -right-1.5 bg-red-500 text-white text-xs rounded-full px-1">
