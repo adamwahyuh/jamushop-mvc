@@ -12,7 +12,20 @@ class Keranjang
     public static function get()
     {
         $db = self::connect();
-        $stmt = $db->query("SELECT * FROM keranjang");
+        $stmt = $db->query("
+            SELECT 
+                k.id AS keranjang_id,
+                k.porsi,
+                k.bahan_id,
+                b.nama,
+                b.harga,
+                b.foto,
+                b.jenis,
+                b.deskripsi,
+                (b.harga * k.porsi) AS total_harga
+            FROM keranjang k
+            JOIN bahan b ON b.id = k.bahan_id
+        ");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

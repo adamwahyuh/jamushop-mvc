@@ -45,6 +45,23 @@
 ```
 /api/v1/keranjang
 ```
+```
+{
+    "data": [
+        {
+            "keranjang_id": 1,
+            "porsi": 13,
+            "bahan_id": 1,
+            "nama": "Kunyit",
+            "harga": 1500,
+            "foto": "asset/img/kunyit.png",
+            "jenis": "Bahan utama",
+            "deskripsi": "Antioksidan, antiradang, meningkatkan sistem imun, meredakan nyeri haid",
+            "total_harga": 19500
+        }
+    ]
+}
+```
 - Get : find {id}
 ```
 /api/v1/keranjang/{id}
