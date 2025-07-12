@@ -17,6 +17,7 @@
         <form action="/" method="get" class="relative hidden md:block flex-1 max-w-xs">
           <input
             type="text"
+            id="search-box"
             name="search"
             placeholder="Cari bahan..."
             class="pl-10 pr-4 h-10 w-full rounded-full bg-white text-gray-700 placeholder-gray-400 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
@@ -53,6 +54,7 @@
       <form action="/" method="get" class="relative">
         <input
           type="text"
+          id="search-box"
           name="search"
           placeholder="Cari bahan..."
           class="pl-10 pr-4 py-2 w-full rounded-full bg-white text-gray-700 placeholder-gray-400 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
