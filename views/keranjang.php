@@ -23,7 +23,7 @@
             <div class="cart-item flex gap-4 bg-white rounded-xl shadow p-4">
             <div class="cart-item-img w-24 h-24 flex-shrink-0">
                 <img
-                src="https://via.placeholder.com/150"
+                src="./../asset/img/jahe.png"
                 alt="Nama Bahan"
                 class="w-full h-full object-cover rounded-lg"
                 />
@@ -62,7 +62,7 @@
             <div class="cart-item flex gap-4 bg-white rounded-xl shadow p-4">
             <div class="cart-item-img w-24 h-24 flex-shrink-0">
                 <img
-                src="https://via.placeholder.com/150"
+                src="./../asset/img/jahe.png"
                 alt="Nama Bahan"
                 class="w-full h-full object-cover rounded-lg"
                 />
