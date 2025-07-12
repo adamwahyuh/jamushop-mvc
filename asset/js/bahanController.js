@@ -173,14 +173,21 @@ function renderBahan(bahanList) {
                 porsi: porsi
               }),
             })
-              .then((res) => res.json())
-              .then(() => {
-                alert(`Menambahkan ${item.nama} ke keranjang!`);
-              })
-              .catch((err) => {
-                console.error(err);
-                alert("Gagal menambahkan ke keranjang.");
-              });
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error("HTTP error! Status: " + res.status);
+              }
+              // jika body kosong → balikin dummy supaya tetap jalan
+              return res.text().then((text) => text ? JSON.parse(text) : {});
+            })
+            .then((response) => {
+              alert(`Berhasil menambahkan ${item.nama} ke keranjang!`);
+              location.reload();
+            })
+            .catch((err) => {
+              console.error(err);
+              alert("Gagal menambahkan ke keranjang.");
+            });
           }
         })
         .catch((err) => {

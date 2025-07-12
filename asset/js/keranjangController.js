@@ -31,7 +31,7 @@ function renderCart(items) {
         totalHarga += item.total_harga;
 
         return `
-            <div class="cart-item flex gap-4 bg-white rounded-xl shadow p-4 mb-4">
+            <div class="cart-item flex gap-4 bg-white rounded-xl shadow p-4 mb-4 hover:shadow-lg transition">
                 <div class="cart-item-img w-24 h-24 flex-shrink-0">
                     <img
                         src="../${item.foto}"
@@ -52,12 +52,12 @@ function renderCart(items) {
                         <form class="flex items-center gap-2" data-id="${item.keranjang_id}" data-bahan="${item.bahan_id}">
                             <button
                                 type="button"
-                                class="qty-btn-minus bg-gray-200 hover:bg-gray-300 text-gray-700 w-8 h-8 rounded-full text-lg flex items-center justify-center"
+                                class="cursor-pointer qty-btn-minus bg-gray-200 hover:bg-gray-300 text-gray-700 w-8 h-8 rounded-full text-lg flex items-center justify-center"
                             >−</button>
                             <span class="qty-count text-base font-semibold w-8 text-center">${item.porsi}</span>
                             <button
                                 type="button"
-                                class="qty-btn-plus bg-gray-200 hover:bg-gray-300 text-gray-700 w-8 h-8 rounded-full text-lg flex items-center justify-center"
+                                class="cursor-pointer qty-btn-plus bg-gray-200 hover:bg-gray-300 text-gray-700 w-8 h-8 rounded-full text-lg flex items-center justify-center"
                             >+</button>
                         </form>
                         <div class="cart-item-price text-emerald-600 font-bold">
@@ -66,7 +66,7 @@ function renderCart(items) {
                     </div>
                 </div>
                 <button 
-                    class="delete-btn text-red-500 hover:text-red-700 text-xl" 
+                    class="delete-btn text-red-500 hover:text-red-700 text-xl cursor-pointer" 
                     data-id="${item.keranjang_id}">
                     <i class="bi bi-trash3-fill"></i> 
                 </button>
@@ -87,7 +87,7 @@ function renderCart(items) {
             </div>
             <button
                 id="checkout-btn"
-                class="block mt-6 w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded transition"
+                class="cursor-pointer block mt-6 w-full text-center bg-emerald-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded transition"
             >
                 Checkout
             </button>

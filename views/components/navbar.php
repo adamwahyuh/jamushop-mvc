@@ -1,3 +1,7 @@
+<?php include __DIR__ . "../../../checker.php" ?>
+
+
+<title>Jamushop <?= $title==''? '': "- ".$title  ?></title>
 <nav class="bg-gradient-to-r from-teal-600 to-teal-400 text-white sticky top-0 z-50 shadow">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
@@ -6,7 +10,7 @@
       <div class="flex items-center space-x-2">
         <img src="../../asset/img/ginger-tea.png" alt="Logo" class="h-10 w-10 rounded-full shadow object-cover">
         <a href="../../" class="text-2xl font-bold tracking-wide hover:text-emerald-200 transition">
-          NamaToko
+          <?= $namaToko ?>
         </a>
       </div>
 
@@ -33,10 +37,10 @@
         <!-- Cart -->
         <div class="relative hidden md:flex items-center justify-center h-10 w-10">
           <a href="/cangkir" class="hover:text-emerald-200 transition">
-            <i class="bi bi-cup-hot text-2xl"></i>
+            <i class="bi <?= checkUrl('/cangkir') ? 'bi-cup-hot-fill text-red-700': 'bi-cup-hot' ?> text-2xl "></i>
           </a>
-          <span class="absolute top-[-3px] -right-1.5 bg-red-500 text-white text-xs rounded-full px-1">
-            3
+          <span class="absolute top-[-3px] -right-1.5 bg-red-500 text-white text-xs rounded-full px-1 <?= $totalKeranjang === 0 ? 'hidden' : '' ?>">
+            <?= $totalKeranjang ?>
           </span>
         </div>
 

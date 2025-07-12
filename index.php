@@ -2,10 +2,27 @@
 
 require_once "router.php";
 require_once "models/Bahan.php";
+require_once "models/Keranjang.php";
 
-get('/', 'views/home');
+get('/', function(){
+    $totalKeranjang = count(Keranjang::get()) ;
+    $title = '';
+    $namaToko = 'Jamu Mbah Jawa'; 
+    return include 'views/home.php';
+});
 
-get('/cangkir', 'views/keranjang');
+get('/cangkir', function(){
+    $totalKeranjang = count(Keranjang::get()) ; 
+    $title = 'Cangkir';
+    $namaToko = 'Jamu Mbah Jawa';
+    return include 'views/keranjang.php';
+});
+
+
+if (empty($GLOBALS['route_matched'])) {
+    include __DIR__ . '/views/404.php';
+}
+
 // get('/bahan', function (){
 //     $bahanBahan = Bahan::get();
 //     return include 'views/listing-bahan.php';
