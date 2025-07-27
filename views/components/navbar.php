@@ -18,6 +18,7 @@
       <div class="flex-1 flex items-center justify-end space-x-2">
         
         <!-- Search -->
+        <?php if(checkUrl('/')): ?>
         <form action="/" method="get" class="relative hidden md:block flex-1 max-w-xs">
           <input
             type="text"
@@ -28,6 +29,7 @@
           />
           <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
         </form>
+        <?php endif; ?>
 
         <!-- Chest -->
         <a href="../../pages/racikan" class="hidden md:flex items-center justify-center h-10 w-10 hover:text-emerald-200 transition">
