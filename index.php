@@ -4,6 +4,18 @@ require_once "router.php";
 require_once "models/Bahan.php";
 require_once "models/Keranjang.php";
 
+
+/*
+ * ================================
+ *  Fetch API Using JS :) And DOM
+ *  Take a look at asset/js/
+ *  ================================
+ *  Config file is in config.json
+ *  Set your Running Server in config.json
+ *  ================================
+ */
+
+
 get('/', function(){
     $totalKeranjang = count(Keranjang::get()) ;
     $title = '';
@@ -17,7 +29,7 @@ get('/cangkir', function(){
     $namaToko = 'Jamu Mbah Jawa';
     return include 'views/keranjang.php';
 });
-
+get('/docs', "views/docsapi");
 
 if (empty($GLOBALS['route_matched'])) {
     include __DIR__ . '/views/404.php';

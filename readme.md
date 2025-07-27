@@ -1,3 +1,16 @@
+# Install
+- Clone Repo
+```
+git clone https://github.com/adamwahyuh/jamushop-mvc
+```
+- Configure config.json
+```
+// Change it with your Running Server
+{
+    "HOST": "http://127.0.0.1:8080"
+}
+```
+
 # APIs
 # bahan
 

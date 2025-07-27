@@ -3,22 +3,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadCart() {
-    fetch("http://localhost:9595/api/v1/keranjang")
-    .then((res) => res.json())
-    .then((json) => {
-        const listKeranjang = json.data;
-        if (!listKeranjang || listKeranjang.length === 0) {
-            document.getElementById("empty-cart").classList.remove("hidden");
-            document.getElementById("cart-container").innerHTML = "";
-            return;
-        }
-        renderCart(listKeranjang);
-    })
-    .catch((err) => {
-        console.error("Error loading cart data:", err);
-        document.getElementById("empty-cart").classList.remove("hidden");
-        document.getElementById("empty-cart").textContent = "Gagal memuat keranjang.";
-    });
+    fetch("/config.json")
+        .then(res => res.json())
+        .then(config => {
+            fetch(`${config.HOST}/api/v1/keranjang`)
+                .then(res => res.json())
+                .then(json => {
+                    const listKeranjang = json.data;
+                    if (!listKeranjang || listKeranjang.length === 0) {
+                        document.getElementById("empty-cart").classList.remove("hidden");
+                        document.getElementById("cart-container").innerHTML = "";
+                        return;
+                    }
+                    renderCart(listKeranjang);
+                })
+                .catch(err => {
+                    console.error("Error loading cart data:", err);
+                    document.getElementById("empty-cart").classList.remove("hidden");
+                    document.getElementById("empty-cart").textContent = "Gagal memuat keranjang.";
+                });
+        })
+        .catch(err => console.error("Error loading config.json:", err));
 }
 
 function renderCart(items) {
@@ -148,20 +153,29 @@ function addDeleteListeners() {
 
             if (!confirm("Hapus ini?")) return;
 
-            fetch(`http://localhost:9595/api/v1/keranjang/${id}`, {
+            fetch("/config.json")
+            .then(res => res.json())
+            .then(config => {
+                fetch(`${config.HOST}/api/v1/keranjang/${id}`, {
                 method: "DELETE",
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("HTTP error");
-                return res.text();
-            })
-            .then(() => {
-                loadCart();
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP error");
+                    return res.text();
+                })
+                .then(() => {
+                    loadCart();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Gagal menghapus item.");
+                });
             })
             .catch(err => {
-                console.error(err);
-                alert("Gagal menghapus item.");
+                console.error("Gagal memuat config.json:", err);
+                alert("Gagal memuat konfigurasi.");
             });
+
         });
     });
 }
@@ -173,27 +187,39 @@ function addCheckoutListener() {
         btn.addEventListener("click", () => {
             if (!confirm("pay?")) return;
 
-            fetch("http://localhost:9595/api/v1/keranjang/pay/", {
+            fetch("/config.json")
+            .then(res => res.json())
+            .then(config => {
+                fetch(`${config.HOST}/api/v1/keranjang/pay/`, {
                 method: "DELETE",
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("HTTP error");
-                return res.text();
-            })
-            .then(() => {
-                location.reload();
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("HTTP error");
+                    return res.text();
+                })
+                .then(() => {
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Gagal melakukan checkout.");
+                });
             })
             .catch(err => {
-                console.error(err);
-                alert("Gagal melakukan checkout.");
+                console.error("Gagal memuat config.json:", err);
+                alert("Gagal memuat konfigurasi.");
             });
+
         });
     }
 }
 
 
 function updateKeranjang(keranjangId, bahanId, newPorsi) {
-    fetch(`http://localhost:9595/api/v1/keranjang/${keranjangId}`, {
+    fetch("/config.json")
+    .then(res => res.json())
+    .then(config => {
+        fetch(`${config.HOST}/api/v1/keranjang/${keranjangId}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -202,13 +228,18 @@ function updateKeranjang(keranjangId, bahanId, newPorsi) {
             bahan_id: parseInt(bahanId),
             porsi: parseInt(newPorsi),
         }),
-    })
-    .then(res => res.json())
-    .then(() => {
-        loadCart();
+        })
+        .then(res => res.json())
+        .then(() => {
+            loadCart();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Gagal update keranjang.");
+        });
     })
     .catch(err => {
-        console.error(err);
-        alert("Gagal update keranjang.");
+        console.error("Gagal memuat config.json:", err);
+        alert("Gagal memuat konfigurasi.");
     });
 }

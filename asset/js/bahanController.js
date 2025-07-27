@@ -1,22 +1,31 @@
 let bahanList = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("http://localhost:9595/api/v1/bahan")
-    .then((res) => res.json())
-    .then((json) => {
-      bahanList = json.data || [];
+  fetch("/config.json")
+  .then(res => res.json())
+  .then(config => {
+    fetch(`${config.HOST}/api/v1/bahan`)
+      .then(res => res.json())
+      .then(json => {
+        const bahanList = json.data || [];
 
-      if (bahanList.length === 0) {
+        if (bahanList.length === 0) {
+          document.getElementById("no-data").classList.remove("hidden");
+          return;
+        }
+        renderBahan(bahanList);
+      })
+      .catch(error => {
+        console.error("Error fetching bahan data:", error);
+        document.getElementById("no-data").textContent = "Gagal memuat data!";
         document.getElementById("no-data").classList.remove("hidden");
-        return;
-      }
-      renderBahan(bahanList);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      document.getElementById("no-data").textContent = "Gagal memuat data!";
-      document.getElementById("no-data").classList.remove("hidden");
-    });
+      });
+  })
+  .catch(error => {
+    console.error("Error loading config.json:", error);
+    document.getElementById("no-data").textContent = "Gagal memuat konfigurasi!";
+    document.getElementById("no-data").classList.remove("hidden");
+  });
 
   // Search
   document.getElementById("search-box").addEventListener("input", (e) => {
@@ -135,65 +144,76 @@ function renderBahan(bahanList) {
       const porsi = parseInt(element.querySelector(".porsi-input").value);
 
       // cek kalo bahan_id ada yang sama di keranjang
-      fetch("http://localhost:9595/api/v1/keranjang")
+      fetch("/config.json")
         .then((res) => res.json())
-        .then((json) => {
-          const keranjangList = json.data || [];
+        .then((config) => {
+          // Ambil data keranjang
+          fetch(`${config.HOST}/api/v1/keranjang`)
+            .then((res) => res.json())
+            .then((json) => {
+              const keranjangList = json.data || [];
 
-          const existingItem = keranjangList.find((k) => k.bahan_id === bahan_id);
-          // console.log(existingItem);
-          // {id: 1, bahan_id: 1, porsi: 10}
-          if (existingItem) {
-            const updatedPorsi = existingItem.porsi + porsi;
+              const existingItem = keranjangList.find((k) => k.bahan_id === bahan_id);
+              // console.log(existingItem);
+              // {id: 1, bahan_id: 1, porsi: 10}
+              if (existingItem) {
+                const updatedPorsi = existingItem.porsi + porsi;
 
-            fetch(`http://localhost:9595/api/v1/keranjang/${existingItem.keranjang_id}`, {
-              method: "PUT",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                bahan_id: bahan_id,
-                porsi: updatedPorsi
-              }),
-            })
-              .then((res) => res.json())
-              .then(() => {
-                alert(`Menambahkan porsi ${item.nama}, Total: ${updatedPorsi}`);
-              })
-              .catch((err) => {
-                console.error(err);
-                alert("Gagal mengupdate keranjang.");
-              });
+                // Update keranjang jika bahan_id sudah ada
+                fetch(`${config.HOST}/api/v1/keranjang/${existingItem.keranjang_id}`, {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    bahan_id: bahan_id,
+                    porsi: updatedPorsi
+                  }),
+                })
+                  .then((res) => res.json())
+                  .then(() => {
+                    alert(`Menambahkan porsi ${item.nama}, Total: ${updatedPorsi}`);
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    alert("Gagal mengupdate keranjang.");
+                  });
 
-          } else {
-            // kalo bahan id tidak ada yang sama, post saja 
-            fetch("http://localhost:9595/api/v1/keranjang", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                bahan_id: bahan_id,
-                porsi: porsi
-              }),
-            })
-            .then((res) => {
-              if (!res.ok) {
-                throw new Error("HTTP error! Status: " + res.status);
+              } else {
+                // kalo bahan id tidak ada yang sama, post saja 
+                fetch(`${config.HOST}/api/v1/keranjang`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({
+                    bahan_id: bahan_id,
+                    porsi: porsi
+                  }),
+                })
+                  .then((res) => {
+                    if (!res.ok) {
+                      throw new Error("HTTP error! Status: " + res.status);
+                    }
+                    // jika body kosong → balikin dummy supaya tetap jalan
+                    return res.text().then((text) => text ? JSON.parse(text) : {});
+                  })
+                  .then((response) => {
+                    alert(`Berhasil menambahkan ${item.nama} ke keranjang!`);
+                    location.reload();
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                    alert("Gagal menambahkan ke keranjang.");
+                  });
               }
-              // jika body kosong → balikin dummy supaya tetap jalan
-              return res.text().then((text) => text ? JSON.parse(text) : {});
-            })
-            .then((response) => {
-              alert(`Berhasil menambahkan ${item.nama} ke keranjang!`);
-              location.reload();
             })
             .catch((err) => {
               console.error(err);
-              alert("Gagal menambahkan ke keranjang.");
+              alert("Gagal mengecek keranjang.");
             });
-          }
         })
         .catch((err) => {
-          console.error(err);
-          alert("Gagal mengecek keranjang.");
+          console.error("Gagal memuat config.json:", err);
+          alert("Gagal memuat konfigurasi.");
         });
+
     });       
     container.appendChild(element);
   });

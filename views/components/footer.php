@@ -17,8 +17,7 @@
     <div>
     <h2 class="text-xl font-bold text-white mb-2">Links</h2>
     <ul class="space-y-1">
-        <li><a href="#" class="hover:text-purple-400 transition">Credit</a></li>
-        <li><a href="#" class="hover:text-purple-400 transition">About</a></li>
+        <li><a href="/docs" class="hover:text-purple-400 transition">Api Documentation</a></li>
     </ul>
     </div>
 
