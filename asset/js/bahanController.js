@@ -1,31 +1,31 @@
-let bahanList = [];
-
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("/config.json")
-  .then(res => res.json())
-  .then(config => {
-    fetch(`${config.HOST}/api/v1/bahan`)
-      .then(res => res.json())
-      .then(json => {
-        const bahanList = json.data || [];
+  let bahanList = []; 
 
-        if (bahanList.length === 0) {
+  fetch("/config.json")
+    .then(res => res.json())
+    .then(config => {
+      fetch(`${config.HOST}/api/v1/bahan`)
+        .then(res => res.json())
+        .then(json => {
+          bahanList = json.data || []; 
+
+          if (bahanList.length === 0) {
+            document.getElementById("no-data").classList.remove("hidden");
+            return;
+          }
+          renderBahan(bahanList);
+        })
+        .catch(error => {
+          console.error("Error fetching bahan data:", error);
+          document.getElementById("no-data").textContent = "Gagal memuat data!";
           document.getElementById("no-data").classList.remove("hidden");
-          return;
-        }
-        renderBahan(bahanList);
-      })
-      .catch(error => {
-        console.error("Error fetching bahan data:", error);
-        document.getElementById("no-data").textContent = "Gagal memuat data!";
-        document.getElementById("no-data").classList.remove("hidden");
-      });
-  })
-  .catch(error => {
-    console.error("Error loading config.json:", error);
-    document.getElementById("no-data").textContent = "Gagal memuat konfigurasi!";
-    document.getElementById("no-data").classList.remove("hidden");
-  });
+        });
+    })
+    .catch(error => {
+      console.error("Error loading config.json:", error);
+      document.getElementById("no-data").textContent = "Gagal memuat konfigurasi!";
+      document.getElementById("no-data").classList.remove("hidden");
+    });
 
   // Search
   document.getElementById("search-box").addEventListener("input", (e) => {
@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const filtered = bahanList.filter((item) => {
       return (
-        // cari dari nama jenis desc
         item.nama.toLowerCase().includes(keyword) ||
         item.jenis.toLowerCase().includes(keyword) ||
         item.deskripsi.toLowerCase().includes(keyword)
