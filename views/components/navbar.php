@@ -57,6 +57,7 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
     <div class="mt-4 space-y-2">
+      <?php if(checkUrl('/')): ?>
       <form action="/" method="get" class="relative">
         <input
           type="text"
@@ -67,6 +68,7 @@
         />
         <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
       </form>
+      <?php endif; ?>
 
       <a href="../../pages/racikan" class="block text-white hover:bg-emerald-700 px-3 py-2 rounded transition">
         <i class="bi bi-archive mr-2"></i> Racikan
