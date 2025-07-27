@@ -11,7 +11,8 @@ git clone https://github.com/adamwahyuh/jamushop-mvc
 }
 ```
 
-# APIs
+# APIs (Visit /docs)
+
 # bahan
 
 - Get : All
